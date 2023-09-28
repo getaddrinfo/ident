@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "google/protobuf/duration.proto";
+
+package ident.session;
+
+
+message Session {
+    uint64 id = 1;
+    uint64 user_id = 2;
+
+    google.protobuf.Duration expires_in = 3;
+    bytes token_hash = 4;
+}

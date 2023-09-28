@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ident.user;
+
+enum UserType {
+    UTUser = 0;
+    UTAdmin = 1;
+}
+
+message UserTOTP {
+    string secret = 1;
+}
+
+message User {
+    uint64 id = 1;
+    UserType type = 2;
+
+    // unique across instance
+    string username = 3;
+
+    // unique across instance
+    string email = 4;
+    
+    string avatar_url = 5;
+    
+    // extra attributes for a user (e.g., their position).
+    map<string, string> attributes = 6;
+
+    bytes password = 7;
+
+    UserTOTP totp = 8;
+}

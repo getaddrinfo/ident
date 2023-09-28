@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ident.application;
+
+enum AccessRuleType {
+    ARTAllow = 0;
+    ARTDeny = 1;
+}
+
+message Rule {
+    uint64 id = 1;
+    AccessRuleType type = 2;
+    
+    oneof target {
+        uint64 user_id = 3;
+        uint64 group_id = 4;
+    }
+}   
+
+message Application {
+    uint64 id = 1;
+    string name = 2;
+
+    // These are used to track what should or should not
+    // be present in the database. Access is determined by
+    // using keys present in fdb for much quicker lookup speeds. 
+    repeated Rule rules = 3;
+}

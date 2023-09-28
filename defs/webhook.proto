@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package ident.webhook;
+
+message WebhookFilter {
+    // TODO;
+}
+
+message Webhook {
+    uint64 id = 1; 
+    string url = 2;
+    repeated WebhookFilter filters = 3;
+}

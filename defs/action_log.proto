@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package ident.action_log;
+
+message ActionLog {
+    uint64 id = 1;
+    uint64 user_id = 2;
+
+    // use larger indeces for these data types:
+    // allows us to add more fields if necessary
+    // (although i doubt we will)
+    oneof action {
+        ActionSignIn sign_in = 1000;
+        ActionSignOut sign_out = 1001;
+    }
+}
+
+message ActionSignIn {
+    string source_ip = 1;
+}
+
+message ActionSignOut {
+
+}

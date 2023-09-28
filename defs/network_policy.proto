@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ident.network_policy;
+
+enum NetworkPolicyType {
+    NPRTAllow = 0;
+    NPRTDeny = 1;
+}
+
+
+message NetworkPolicy {
+    uint64 id = 1;
+    NetworkPolicyType type = 2;
+
+    // TODO: define this more explicitly
+    // TODO: does this actually need to be a oneof?
+    string selector = 3;
+}
