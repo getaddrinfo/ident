@@ -1,0 +1,11 @@
+{% extends "error/base.html" %}
+
+{% block hidden_content %}
+{%- for failure in failures %}
+    <div id="failure" class="px-2 mb-1 py-0.5 bg-red-200 rounded-md">
+        <code class="text-sm">{{ failure.reason }} (rule: {{ failure.rule.name }})</code>
+    </div>
+{% endfor %}
+{% endblock %}
+
+

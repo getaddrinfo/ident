@@ -47,6 +47,10 @@ Restrictions for Applications are applied based on these ACLs, which may be used
 
 Re-using ACLs allows for rules to easily be mass-updated, and applies the DRY (Don't Repeat Yourself) principle.
 
+## TODO
+
+- [ ] Split Gateway and API into separate poetry projects
+
 ## TODO (API)
 
 ### Implementation Details

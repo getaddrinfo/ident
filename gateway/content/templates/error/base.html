@@ -1,0 +1,69 @@
+{% extends "internal/base.html" %}
+
+{% block scripts %}
+{%- if self.hidden_content() | trim %}
+<script>
+let details = document.getElementById("details")
+let header = details.getElementsByTagName("header")[0];
+let content = document.getElementById("hidden-content");
+
+// icons
+let down = document.getElementById("down");
+let left = document.getElementById("left")
+
+header.onclick = function(event) {
+    event.preventDefault();
+
+    content.classList.toggle("hidden");
+
+    details.classList.toggle("hover:border-slate-300");
+    details.classList.toggle("border-slate-300")
+
+    down.classList.toggle("hidden");
+    left.classList.toggle("hidden");
+}
+
+</script>
+{% endif %}
+{% endblock scripts %}
+
+{% block content %}
+    <div class="h-[100vh] flex flex-col items-center justify-center max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold mb-2 text-indigo-500">(ident)</h1>
+        <div class="flex flex-col p-3 border-[1px] m-2 border-slate-200 rounded-md space-y-2">
+            <header class="flex flex-row justify-between">
+                <h1 class="text-xl font-semibold">{{ title }}</h1>
+            </header>
+            <p>
+                {{ description }}
+            </p>
+            
+            {%- if self.hidden_content() | trim %}
+            <div id="details" class="px-2 py-1 border-[1px] border-slate-200 rounded-md space-y-2 hover:border-slate-300 ease-in-out duration-200">
+                <header class="flex flex-row items-center justify-between">
+                    <h3 class="text-gray-400">Details</h3> 
+
+                    <div id="icons">
+                        <!-- down -->
+                        <svg id="down" xmlns="http://www.w3.org/2000/svg" class="hidden icon icon-tabler icon-tabler-chevron-down" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="#9CA3AF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M6 9l6 6l6 -6"/>
+                        </svg>
+
+                        <!-- left -->
+                        <svg id="left" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="#9CA3AF" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M15 6l-6 6l6 6"/>
+                        </svg>
+                    </div>
+                </header>
+
+                <div id="hidden-content" class="hidden">
+                    {% block hidden_content %}
+                    {% endblock hidden_content %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
