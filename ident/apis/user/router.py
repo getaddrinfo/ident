@@ -15,7 +15,7 @@ user_router = Blueprint('users', __name__, url_prefix="/users")
 @authenticate
 @returns(responses.GetSelf)
 @inject
-def get_self(current_user: User, b: User):
+def get_self(current_user: User):
     return responses.GetSelf(
         id=str(current_user.id)
     )
