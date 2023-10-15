@@ -11,19 +11,66 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x61\x63tion_log.proto\x12\x10ident.action_log\"\x9c\x01\n\tActionLog\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\x12\x32\n\x07sign_in\x18\xe8\x07 \x01(\x0b\x32\x1e.ident.action_log.ActionSignInH\x00\x12\x34\n\x08sign_out\x18\xe9\x07 \x01(\x0b\x32\x1f.ident.action_log.ActionSignOutH\x00\x42\x08\n\x06\x61\x63tion\"!\n\x0c\x41\x63tionSignIn\x12\x11\n\tsource_ip\x18\x01 \x01(\t\"\x0f\n\rActionSignOutb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x61\x63tion_log.proto\x12\x10ident.action_log\x1a\x19google/protobuf/any.proto\"\xa8\x0c\n\tActionLog\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x11\n\ttarget_id\x18\x02 \x01(\x04\x12/\n\x05\x61\x63tor\x18\x03 \x01(\x0b\x32 .ident.action_log.ActionLogActor\x12\x39\n\x0b\x61\x63l_created\x18\x04 \x01(\x0b\x32\".ident.action_log.ActionAclCreatedH\x00\x12\x39\n\x0b\x61\x63l_updated\x18\x05 \x01(\x0b\x32\".ident.action_log.ActionAclUpdatedH\x00\x12\x39\n\x0b\x61\x63l_deleted\x18\x06 \x01(\x0b\x32\".ident.action_log.ActionAclDeletedH\x00\x12I\n\x13\x61pplication_created\x18\x07 \x01(\x0b\x32*.ident.action_log.ActionApplicationCreatedH\x00\x12K\n\x14\x61pplication_accessed\x18\x08 \x01(\x0b\x32+.ident.action_log.ActionApplicationAccessedH\x00\x12I\n\x13\x61pplication_deleted\x18\t \x01(\x0b\x32*.ident.action_log.ActionApplicationDeletedH\x00\x12=\n\rgroup_created\x18\n \x01(\x0b\x32$.ident.action_log.ActionGroupCreatedH\x00\x12=\n\rgroup_updated\x18\x18 \x01(\x0b\x32$.ident.action_log.ActionGroupUpdatedH\x00\x12\x46\n\x12group_member_added\x18\x0b \x01(\x0b\x32(.ident.action_log.ActionGroupMemberAddedH\x00\x12J\n\x14group_member_removed\x18\x0c \x01(\x0b\x32*.ident.action_log.ActionGroupMemberRemovedH\x00\x12=\n\rgroup_deleted\x18\r \x01(\x0b\x32$.ident.action_log.ActionGroupDeletedH\x00\x12\x41\n\x0fnetwork_created\x18\x0e \x01(\x0b\x32&.ident.action_log.ActionNetworkCreatedH\x00\x12\x41\n\x0fnetwork_updated\x18\x0f \x01(\x0b\x32&.ident.action_log.ActionNetworkUpdatedH\x00\x12\x41\n\x0fnetwork_deleted\x18\x10 \x01(\x0b\x32&.ident.action_log.ActionNetworkDeletedH\x00\x12\x41\n\x0fsession_created\x18\x11 \x01(\x0b\x32&.ident.action_log.ActionSessionCreatedH\x00\x12;\n\x0cuser_created\x18\x12 \x01(\x0b\x32#.ident.action_log.ActionUserCreatedH\x00\x12?\n\x0euser_suspended\x18\x13 \x01(\x0b\x32%.ident.action_log.ActionUserSuspendedH\x00\x12L\n\x15user_password_changed\x18\x14 \x01(\x0b\x32+.ident.action_log.ActionUserPasswordChangedH\x00\x12;\n\x0cuser_deleted\x18\x15 \x01(\x0b\x32#.ident.action_log.ActionUserDeletedH\x00\x12\x41\n\x0fwebhook_created\x18\x16 \x01(\x0b\x32&.ident.action_log.ActionWebhookCreatedH\x00\x12\x41\n\x0fwebhook_updated\x18\x19 \x01(\x0b\x32&.ident.action_log.ActionWebhookUpdatedH\x00\x12\x41\n\x0fwebhook_deleted\x18\x17 \x01(\x0b\x32&.ident.action_log.ActionWebhookDeletedH\x00\x42\x08\n\x06\x61\x63tion\"\xc1\x01\n\x0e\x41\x63tionLogActor\x12\x41\n\x04type\x18\x01 \x01(\x0e\x32\x33.ident.action_log.ActionLogActor.ActionLogActorType\x12\n\n\x02id\x18\x02 \x01(\x04\"`\n\x12\x41\x63tionLogActorType\x12\x16\n\x12\x41\x63tionLogActorUser\x10\x00\x12\x18\n\x14\x41\x63tionLogActorSystem\x10\x01\x12\x18\n\x14\x41\x63tionLogActorAPIKey\x10\x02\"n\n\x14\x41\x63tionLogFieldChange\x12$\n\x06\x62\x65\x66ore\x18\x01 \x01(\x0b\x32\x14.google.protobuf.Any\x12#\n\x05\x61\x66ter\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\x0b\n\x03key\x18\x03 \x01(\t\"K\n\x10\x41\x63tionAclCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"K\n\x10\x41\x63tionAclUpdated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"\x12\n\x10\x41\x63tionAclDeleted\"S\n\x18\x41\x63tionApplicationCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"A\n\x19\x41\x63tionApplicationAccessed\x12\x0e\n\x04ipv4\x18\x01 \x01(\rH\x00\x12\x0e\n\x04ipv6\x18\x02 \x01(\x0cH\x00\x42\x04\n\x02ip\"\x1a\n\x18\x41\x63tionApplicationDeleted\"M\n\x12\x41\x63tionGroupCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"M\n\x12\x41\x63tionGroupUpdated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"+\n\x16\x41\x63tionGroupMemberAdded\x12\x11\n\tmember_id\x18\x01 \x01(\x04\"+\n\x18\x41\x63tionGroupMemberRemoved\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"\x14\n\x12\x41\x63tionGroupDeleted\"O\n\x14\x41\x63tionNetworkCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"O\n\x14\x41\x63tionNetworkUpdated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"\x16\n\x14\x41\x63tionNetworkDeleted\"O\n\x14\x41\x63tionSessionCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"L\n\x11\x41\x63tionUserCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"#\n\x13\x41\x63tionUserSuspended\x12\x0c\n\x04note\x18\x01 \x01(\t\"\x1b\n\x19\x41\x63tionUserPasswordChanged\"\x13\n\x11\x41\x63tionUserDeleted\"O\n\x14\x41\x63tionWebhookCreated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"O\n\x14\x41\x63tionWebhookUpdated\x12\x37\n\x07\x63hanges\x18\x01 \x03(\x0b\x32&.ident.action_log.ActionLogFieldChange\"\x16\n\x14\x41\x63tionWebhookDeletedb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'action_log_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _ACTIONLOG._serialized_start=39
-  _ACTIONLOG._serialized_end=195
-  _ACTIONSIGNIN._serialized_start=197
-  _ACTIONSIGNIN._serialized_end=230
-  _ACTIONSIGNOUT._serialized_start=232
-  _ACTIONSIGNOUT._serialized_end=247
+  _ACTIONLOG._serialized_start=66
+  _ACTIONLOG._serialized_end=1642
+  _ACTIONLOGACTOR._serialized_start=1645
+  _ACTIONLOGACTOR._serialized_end=1838
+  _ACTIONLOGACTOR_ACTIONLOGACTORTYPE._serialized_start=1742
+  _ACTIONLOGACTOR_ACTIONLOGACTORTYPE._serialized_end=1838
+  _ACTIONLOGFIELDCHANGE._serialized_start=1840
+  _ACTIONLOGFIELDCHANGE._serialized_end=1950
+  _ACTIONACLCREATED._serialized_start=1952
+  _ACTIONACLCREATED._serialized_end=2027
+  _ACTIONACLUPDATED._serialized_start=2029
+  _ACTIONACLUPDATED._serialized_end=2104
+  _ACTIONACLDELETED._serialized_start=2106
+  _ACTIONACLDELETED._serialized_end=2124
+  _ACTIONAPPLICATIONCREATED._serialized_start=2126
+  _ACTIONAPPLICATIONCREATED._serialized_end=2209
+  _ACTIONAPPLICATIONACCESSED._serialized_start=2211
+  _ACTIONAPPLICATIONACCESSED._serialized_end=2276
+  _ACTIONAPPLICATIONDELETED._serialized_start=2278
+  _ACTIONAPPLICATIONDELETED._serialized_end=2304
+  _ACTIONGROUPCREATED._serialized_start=2306
+  _ACTIONGROUPCREATED._serialized_end=2383
+  _ACTIONGROUPUPDATED._serialized_start=2385
+  _ACTIONGROUPUPDATED._serialized_end=2462
+  _ACTIONGROUPMEMBERADDED._serialized_start=2464
+  _ACTIONGROUPMEMBERADDED._serialized_end=2507
+  _ACTIONGROUPMEMBERREMOVED._serialized_start=2509
+  _ACTIONGROUPMEMBERREMOVED._serialized_end=2552
+  _ACTIONGROUPDELETED._serialized_start=2554
+  _ACTIONGROUPDELETED._serialized_end=2574
+  _ACTIONNETWORKCREATED._serialized_start=2576
+  _ACTIONNETWORKCREATED._serialized_end=2655
+  _ACTIONNETWORKUPDATED._serialized_start=2657
+  _ACTIONNETWORKUPDATED._serialized_end=2736
+  _ACTIONNETWORKDELETED._serialized_start=2738
+  _ACTIONNETWORKDELETED._serialized_end=2760
+  _ACTIONSESSIONCREATED._serialized_start=2762
+  _ACTIONSESSIONCREATED._serialized_end=2841
+  _ACTIONUSERCREATED._serialized_start=2843
+  _ACTIONUSERCREATED._serialized_end=2919
+  _ACTIONUSERSUSPENDED._serialized_start=2921
+  _ACTIONUSERSUSPENDED._serialized_end=2956
+  _ACTIONUSERPASSWORDCHANGED._serialized_start=2958
+  _ACTIONUSERPASSWORDCHANGED._serialized_end=2985
+  _ACTIONUSERDELETED._serialized_start=2987
+  _ACTIONUSERDELETED._serialized_end=3006
+  _ACTIONWEBHOOKCREATED._serialized_start=3008
+  _ACTIONWEBHOOKCREATED._serialized_end=3087
+  _ACTIONWEBHOOKUPDATED._serialized_start=3089
+  _ACTIONWEBHOOKUPDATED._serialized_end=3168
+  _ACTIONWEBHOOKDELETED._serialized_start=3170
+  _ACTIONWEBHOOKDELETED._serialized_end=3192
 # @@protoc_insertion_point(module_scope)
