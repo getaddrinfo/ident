@@ -8,10 +8,10 @@ from . import models, service
 
 @action_logs_router.get("")
 @validate(query=models.ListActionLogsQueryParams)
-def get_action_logs():
+def list_action_logs():
     pass
 
 @action_logs_router.get("/<entry_id>")
 @validate(path=models.GetActionLogEntryPathParams)
-def get_action_log_entry():
+def get_action_log():
     pass
