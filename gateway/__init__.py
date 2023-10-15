@@ -35,23 +35,24 @@ def application(
             title='Forbidden',
             description='You do not have the required permissions to access this resource. If you think this is a mistake, contact your administrator.',
             extra={
-            'failures': [
-                {
-                    'reason': 'Outside of corporate network',
-                    'rule': {
-                        'id': 1,
-                        'name': 'must_be_on_corporate_network'
+                'failures': [
+                    {
+                        'reason': 'Outside of corporate network',
+                        'rule': {
+                            'id': 1,
+                            'name': 'must_be_on_corporate_network'
+                        }
+                    },
+                    {
+                        'reason': 'Must be a member of HR',
+                        'rule': {
+                            'id': 2,
+                            'name': 'is_hr'
+                        }
                     }
-                },
-                {
-                    'reason': 'Must be a member of HR',
-                    'rule': {
-                        'id': 2,
-                        'name': 'is_hr'
-                    }
-                }
-            ]
-        })
+                ]
+            }
+        )
 
         status = '403 Forbidden'
         headers = [('Content-Type', 'text/html; charset=utf-8')]
@@ -59,11 +60,14 @@ def application(
 
         return [body]
 
-        
+    
 
-    body = bytes(json.dumps(downstream.build_headers(environ, None)), 'utf-8')
-    status = '200 OK'
-    headers = [('Content-Type', 'text/plain')]
+    body = templating.error(
+        title='Not Implemented',
+        description='This behaviour is not implemented. If you think this is a mistake, contact your administrator.'
+    )
+    status = '501 Not Implemented'
+    headers = [('Content-Type', 'text/html; charset=utf-8')]
 
     start_response(status, headers)
     return [body]

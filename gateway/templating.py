@@ -24,9 +24,9 @@ class Templating:
         description: str
     ) -> bytes:
         return self.render(
-            name='error', 
+            name='error/base', 
             args={
-                'title': 'Gateway Error',
+                'title': title,
                 'description': f'Something went wrong while processing your request: {description}',
             }
         )
