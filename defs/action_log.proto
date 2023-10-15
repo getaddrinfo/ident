@@ -2,23 +2,156 @@ syntax = "proto3";
 
 package ident.action_log;
 
+import "google/protobuf/any.proto";
+
 message ActionLog {
     uint64 id = 1;
-    uint64 user_id = 2;
+    uint64 target_id = 2; // resource derived from action type
+    
+    ActionLogActor actor = 3;
 
-    // use larger indeces for these data types:
-    // allows us to add more fields if necessary
-    // (although i doubt we will)
     oneof action {
-        ActionSignIn sign_in = 1000;
-        ActionSignOut sign_out = 1001;
+        ActionAclCreated acl_created = 4; 
+        ActionAclUpdated acl_updated = 5;
+        ActionAclDeleted acl_deleted = 6;
+
+        ActionApplicationCreated application_created = 7;
+        ActionApplicationAccessed application_accessed = 8;
+        ActionApplicationDeleted application_deleted = 9;
+
+        ActionGroupCreated group_created = 10;
+        ActionGroupUpdated group_updated = 24;
+        ActionGroupMemberAdded group_member_added = 11;
+        ActionGroupMemberRemoved group_member_removed = 12;
+        ActionGroupDeleted group_deleted = 13;
+
+        ActionNetworkCreated network_created = 14;
+        ActionNetworkUpdated network_updated = 15;
+        ActionNetworkDeleted network_deleted = 16;
+
+        ActionSessionCreated session_created = 17;
+
+        ActionUserCreated user_created = 18;
+        ActionUserSuspended user_suspended = 19;
+        ActionUserPasswordChanged user_password_changed = 20;
+        ActionUserDeleted user_deleted = 21;
+
+        ActionWebhookCreated webhook_created = 22;
+        ActionWebhookUpdated webhook_updated = 25;
+        ActionWebhookDeleted webhook_deleted = 23;
+        
+        // (REMEMBER TO UPDATE) next idx = 26 
     }
 }
 
-message ActionSignIn {
-    string source_ip = 1;
+message ActionLogActor {
+    enum ActionLogActorType {
+        ActionLogActorUser = 0;
+        ActionLogActorSystem = 1;
+        ActionLogActorAPIKey = 2; // TODO: necessary?
+    }
+
+    ActionLogActorType type = 1;
+    uint64 id = 2;
 }
 
-message ActionSignOut {
-
+// TODO: can we make this better?
+message ActionLogFieldChange {
+    google.protobuf.Any before = 1;
+    google.protobuf.Any after = 2;
+    string key = 3;
 }
+
+
+/* ACLs */
+message ActionAclCreated {
+    // all before should be None
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionAclUpdated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionAclDeleted {}
+
+
+/* Applications */
+message ActionApplicationCreated {
+    // all before should be None
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionApplicationAccessed {
+    oneof ip {
+        uint32 ipv4 = 1;
+        bytes ipv6 = 2;
+    }
+}
+
+
+message ActionApplicationDeleted {}
+
+
+/* Groups */
+message ActionGroupCreated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionGroupUpdated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionGroupMemberAdded {
+    uint64 member_id = 1;
+}
+
+message ActionGroupMemberRemoved {
+    uint64 user_id = 1;
+}
+
+message ActionGroupDeleted {}
+
+
+/* Networks */
+message ActionNetworkCreated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionNetworkUpdated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionNetworkDeleted {}
+
+
+/* Sessions */
+message ActionSessionCreated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+
+/* Users */
+message ActionUserCreated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionUserSuspended {
+    string note = 1;
+}
+
+message ActionUserPasswordChanged {}
+
+message ActionUserDeleted {}
+
+
+/* Webhooks */
+message ActionWebhookCreated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionWebhookUpdated {
+    repeated ActionLogFieldChange changes = 1;
+}
+
+message ActionWebhookDeleted {}
