@@ -5,7 +5,7 @@ from ._handler import insert_entry
 
 from ident.db.models import (
     ActionLogActor,
-    ActionLogFieldChange,
+    ActionLogChange,
     ActionLog,
 
     ActionApplicationCreated,
@@ -19,7 +19,7 @@ def add_application_create_entry(
     tr,
     application_id: int,
     actor: ActionLogActor,
-    props: list[ActionLogFieldChange]
+    props: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,

@@ -5,7 +5,7 @@ from ._handler import insert_entry
 from ident.db.models import (
     ActionLog,
     ActionLogActor,
-    ActionLogFieldChange,
+    ActionLogChange,
 
     ActionGroupCreated,
     ActionGroupDeleted,
@@ -20,7 +20,7 @@ def add_group_created_entry(
     tr,
     group_id: int,
     actor: ActionLogActor,
-    props: list[ActionLogFieldChange]
+    props: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,
@@ -33,7 +33,7 @@ def add_group_updated_entry(
     tr,
     actor: ActionLogActor,
     group_id: int,
-    changes: list[ActionLogFieldChange]    
+    changes: list[ActionLogChange]    
 ):
     insert_entry(tr, ActionLog(
         actor=actor,

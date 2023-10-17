@@ -4,14 +4,17 @@ from ipaddress import (
 
 from ident.db.connection import conn
 from ident.db.models import (
-    Application, 
+    Application,
+    ActionLog, 
     ActionLogActor, 
     Group,
     NetworkPolicy,
     Session,
     User,
-    Webhook
+    Webhook,
 )
+
+from ident.db.diff import diff
 
 from ident.db.queries.action_logs import (
     acl as acl_action_log_queries,
@@ -20,10 +23,14 @@ from ident.db.queries.action_logs import (
     network as network_action_log_queries,
     session as session_action_log_queries,
     user as user_action_log_queries,
-    webhook as webhook_action_log_queries
+    webhook as webhook_action_log_queries,
+    queries
 )
 
+from ident.lib.error.action_log import UnknownActionLogEntry
+
 from enum import Enum
+from typing import Any
 from dataclasses import dataclass
 
 class ActorType(Enum):
@@ -31,14 +38,14 @@ class ActorType(Enum):
     system = 1
     api = 2
 
-    __mappings = {
-        user: ActionLogActor.ActionLogActorUser,
-        system: ActionLogActor.ActionLogActorSystem,
-        api: ActionLogActor.ActionLogActorAPIKey
-    }
-
     def to_proto(self) -> ActionLogActor.ActionLogActorType:
-        return self.__mappings[self]
+        return _mappings[self]
+
+_mappings = {
+    ActorType.user: ActionLogActor.ActionLogActorUser,
+    ActorType.system: ActionLogActor.ActionLogActorSystem,
+    ActorType.api: ActionLogActor.ActionLogActorAPIKey
+}
 
 @dataclass
 class Actor:
@@ -77,6 +84,30 @@ class Actor:
             id=self.id,
             type=self.type.to_proto()
         )
+
+
+def get(id: int) -> tuple[ActionLog, Any]:
+    it = queries.get(conn, id)
+
+    if it == None:
+        raise UnknownActionLogEntry()
+
+    return it
+
+def demo():
+    log = on_user_create(
+        actor=Actor.user(1),
+        user=User(
+            id=2,
+            type=User.UTAdmin,
+            attributes={},
+            avatar_url="https://google.com/image.png",
+            email="contact@google.com",
+            password=None,
+            totp=None,
+            username="google"
+        )
+    )
 
 """
 TODO: implement the diffing from before -> after on protobufs.
@@ -315,7 +346,7 @@ def on_user_create(
         conn,
         actor.to_proto(),
         user.id,
-        []
+        diff(None, user)
     )
 
 def on_user_suspend(

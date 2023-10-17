@@ -3,7 +3,7 @@ from ._handler import insert_entry
 
 from ident.db.models import (
     ActionLog,
-    ActionLogFieldChange,
+    ActionLogChange,
     ActionLogActor,
 
     ActionAclCreated,
@@ -16,7 +16,7 @@ def add_create_acl_entry(
     tr,
     acl_id: int,
     actor: ActionLogActor,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,
@@ -41,7 +41,7 @@ def add_update_acl_entry(
     tr,
     acl_id: int,
     actor: ActionLogActor,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,

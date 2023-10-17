@@ -5,7 +5,7 @@ from ._handler import insert_entry
 from ident.db.models import (
     ActionLog,
     ActionLogActor,
-    ActionLogFieldChange,
+    ActionLogChange,
 
     ActionNetworkCreated,
     ActionNetworkUpdated,
@@ -18,7 +18,7 @@ def add_network_created_entry(
     tr,
     actor: ActionLogActor,
     network_id: int,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,
@@ -31,7 +31,7 @@ def add_network_updated_entry(
     tr,
     actor: ActionLogActor,
     network_id: int,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,

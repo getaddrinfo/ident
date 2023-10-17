@@ -5,7 +5,7 @@ from ._handler import insert_entry
 from ident.db.models import (
     ActionLog,
     ActionLogActor,
-    ActionLogFieldChange,
+    ActionLogChange,
 
     ActionSessionCreated
 )
@@ -17,7 +17,7 @@ def add_session_created_entry(
     tr,
     actor: ActionLogActor,
     session_id: int,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,

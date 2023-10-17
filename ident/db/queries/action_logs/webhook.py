@@ -6,7 +6,7 @@ from ._handler import insert_entry
 from ident.db.models import (
     ActionLog,
     ActionLogActor,
-    ActionLogFieldChange,
+    ActionLogChange,
 
     ActionWebhookCreated,
     ActionWebhookUpdated,
@@ -19,7 +19,7 @@ def add_webhook_created_entry(
     tr,
     actor: ActionLogActor,
     webhook_id: int,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,
@@ -32,7 +32,7 @@ def add_webhook_updated_entry(
     tr,
     actor: ActionLogActor,
     webhook_id: int,
-    changes: list[ActionLogFieldChange]
+    changes: list[ActionLogChange]
 ):
     insert_entry(tr, ActionLog(
         actor=actor,
