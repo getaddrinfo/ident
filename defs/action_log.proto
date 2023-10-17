@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package ident.action_log;
 
+import "google/protobuf/descriptor.proto";
 import "google/protobuf/any.proto";
 
 message ActionLog {
@@ -55,22 +56,34 @@ message ActionLogActor {
     uint64 id = 2;
 }
 
-// TODO: can we make this better?
+message ActionLogChange {
+    oneof change {
+        ActionLogFieldChange field = 1;
+        ActionLogKeyChange key = 2;
+    }
+}
+
 message ActionLogFieldChange {
     google.protobuf.Any before = 1;
     google.protobuf.Any after = 2;
     string key = 3;
 }
 
+// map keys can be non-strings in protobuf, so we need Any here ...
+message ActionLogKeyChange {
+    google.protobuf.Any before = 1;
+    google.protobuf.Any after = 2;
+    string key = 3;
+}
 
 /* ACLs */
 message ActionAclCreated {
     // all before should be None
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionAclUpdated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionAclDeleted {}
@@ -79,7 +92,7 @@ message ActionAclDeleted {}
 /* Applications */
 message ActionApplicationCreated {
     // all before should be None
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionApplicationAccessed {
@@ -95,11 +108,11 @@ message ActionApplicationDeleted {}
 
 /* Groups */
 message ActionGroupCreated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionGroupUpdated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionGroupMemberAdded {
@@ -115,11 +128,11 @@ message ActionGroupDeleted {}
 
 /* Networks */
 message ActionNetworkCreated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionNetworkUpdated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionNetworkDeleted {}
@@ -127,13 +140,13 @@ message ActionNetworkDeleted {}
 
 /* Sessions */
 message ActionSessionCreated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 
 /* Users */
 message ActionUserCreated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionUserSuspended {
@@ -147,11 +160,18 @@ message ActionUserDeleted {}
 
 /* Webhooks */
 message ActionWebhookCreated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionWebhookUpdated {
-    repeated ActionLogFieldChange changes = 1;
+    repeated ActionLogChange changes = 1;
 }
 
 message ActionWebhookDeleted {}
+
+
+
+// used in other files to denote "hidden" fields in audit logging
+extend google.protobuf.FieldOptions {
+    optional bool ignored = 88681;
+}

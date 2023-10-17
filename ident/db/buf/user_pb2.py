@@ -11,9 +11,10 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import action_log_pb2 as action__log__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nuser.proto\x12\nident.user\"\xe6\x01\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\"\n\x04type\x18\x02 \x01(\x0e\x32\x14.ident.user.UserType\x12\x10\n\x08username\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x12\n\navatar_url\x18\x05 \x01(\t\x12\x34\n\nattributes\x18\x06 \x03(\x0b\x32 .ident.user.User.AttributesEntry\x12\x10\n\x08password\x18\x07 \x01(\x0c\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01*#\n\x08UserType\x12\n\n\x06UTUser\x10\x00\x12\x0b\n\x07UTAdmin\x10\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nuser.proto\x12\nident.user\x1a\x10\x61\x63tion_log.proto\"\x1a\n\x08UserTOTP\x12\x0e\n\x06secret\x18\x01 \x01(\t\"\xc0\x02\n\x04User\x12\n\n\x02id\x18\x01 \x01(\x04\x12\'\n\x04type\x18\x02 \x01(\x0e\x32\x19.ident.user.User.UserType\x12\x10\n\x08username\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x12\n\navatar_url\x18\x05 \x01(\t\x12\x34\n\nattributes\x18\x06 \x03(\x0b\x32 .ident.user.User.AttributesEntry\x12\x16\n\x08password\x18\x07 \x01(\x0c\x42\x04\xc8\xa6+\x01\x12(\n\x04totp\x18\x08 \x01(\x0b\x32\x14.ident.user.UserTOTPB\x04\xc8\xa6+\x01\x1a\x31\n\x0f\x41ttributesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"#\n\x08UserType\x12\n\n\x06UTUser\x10\x00\x12\x0b\n\x07UTAdmin\x10\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'user_pb2', globals())
@@ -22,10 +23,16 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _USER_ATTRIBUTESENTRY._options = None
   _USER_ATTRIBUTESENTRY._serialized_options = b'8\001'
-  _USERTYPE._serialized_start=259
-  _USERTYPE._serialized_end=294
-  _USER._serialized_start=27
-  _USER._serialized_end=257
-  _USER_ATTRIBUTESENTRY._serialized_start=208
-  _USER_ATTRIBUTESENTRY._serialized_end=257
+  _USER.fields_by_name['password']._options = None
+  _USER.fields_by_name['password']._serialized_options = b'\310\246+\001'
+  _USER.fields_by_name['totp']._options = None
+  _USER.fields_by_name['totp']._serialized_options = b'\310\246+\001'
+  _USERTOTP._serialized_start=44
+  _USERTOTP._serialized_end=70
+  _USER._serialized_start=73
+  _USER._serialized_end=393
+  _USER_ATTRIBUTESENTRY._serialized_start=307
+  _USER_ATTRIBUTESENTRY._serialized_end=356
+  _USER_USERTYPE._serialized_start=358
+  _USER_USERTYPE._serialized_end=393
 # @@protoc_insertion_point(module_scope)

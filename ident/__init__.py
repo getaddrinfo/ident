@@ -1,6 +1,8 @@
 from flask import Flask
 from werkzeug.exceptions import HTTPException
 
+import ident.db.shim
+
 from ident.apis import (
     acls, 
     applications, 

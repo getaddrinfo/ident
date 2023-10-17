@@ -1,17 +1,19 @@
 syntax = "proto3";
-
 package ident.user;
 
-enum UserType {
-    UTUser = 0;
-    UTAdmin = 1;
-}
+import "action_log.proto";
+
 
 message UserTOTP {
     string secret = 1;
 }
 
 message User {
+    enum UserType {
+        UTUser = 0;
+        UTAdmin = 1;
+    }
+    
     uint64 id = 1;
     UserType type = 2;
 
@@ -26,7 +28,7 @@ message User {
     // extra attributes for a user (e.g., their position).
     map<string, string> attributes = 6;
 
-    bytes password = 7;
+    bytes password = 7 [(ident.action_log.ignored) = true];
 
-    UserTOTP totp = 8;
+    UserTOTP totp = 8 [(ident.action_log.ignored) = true];
 }

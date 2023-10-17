@@ -1,3 +1,4 @@
+from google.protobuf import descriptor_pb2 as _descriptor_pb2
 from google.protobuf import any_pb2 as _any_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
@@ -6,12 +7,14 @@ from google.protobuf import message as _message
 from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
+IGNORED_FIELD_NUMBER: _ClassVar[int]
+ignored: _descriptor.FieldDescriptor
 
 class ActionAclCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionAclDeleted(_message.Message):
     __slots__ = []
@@ -20,8 +23,8 @@ class ActionAclDeleted(_message.Message):
 class ActionAclUpdated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionApplicationAccessed(_message.Message):
     __slots__ = ["ipv4", "ipv6"]
@@ -34,8 +37,8 @@ class ActionApplicationAccessed(_message.Message):
 class ActionApplicationCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionApplicationDeleted(_message.Message):
     __slots__ = []
@@ -44,8 +47,8 @@ class ActionApplicationDeleted(_message.Message):
 class ActionGroupCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionGroupDeleted(_message.Message):
     __slots__ = []
@@ -66,8 +69,8 @@ class ActionGroupMemberRemoved(_message.Message):
 class ActionGroupUpdated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionLog(_message.Message):
     __slots__ = ["acl_created", "acl_deleted", "acl_updated", "actor", "application_accessed", "application_created", "application_deleted", "group_created", "group_deleted", "group_member_added", "group_member_removed", "group_updated", "id", "network_created", "network_deleted", "network_updated", "session_created", "target_id", "user_created", "user_deleted", "user_password_changed", "user_suspended", "webhook_created", "webhook_deleted", "webhook_updated"]
@@ -136,7 +139,25 @@ class ActionLogActor(_message.Message):
     type: ActionLogActor.ActionLogActorType
     def __init__(self, type: _Optional[_Union[ActionLogActor.ActionLogActorType, str]] = ..., id: _Optional[int] = ...) -> None: ...
 
+class ActionLogChange(_message.Message):
+    __slots__ = ["field", "key"]
+    FIELD_FIELD_NUMBER: _ClassVar[int]
+    KEY_FIELD_NUMBER: _ClassVar[int]
+    field: ActionLogFieldChange
+    key: ActionLogKeyChange
+    def __init__(self, field: _Optional[_Union[ActionLogFieldChange, _Mapping]] = ..., key: _Optional[_Union[ActionLogKeyChange, _Mapping]] = ...) -> None: ...
+
 class ActionLogFieldChange(_message.Message):
+    __slots__ = ["after", "before", "key"]
+    AFTER_FIELD_NUMBER: _ClassVar[int]
+    BEFORE_FIELD_NUMBER: _ClassVar[int]
+    KEY_FIELD_NUMBER: _ClassVar[int]
+    after: _any_pb2.Any
+    before: _any_pb2.Any
+    key: str
+    def __init__(self, before: _Optional[_Union[_any_pb2.Any, _Mapping]] = ..., after: _Optional[_Union[_any_pb2.Any, _Mapping]] = ..., key: _Optional[str] = ...) -> None: ...
+
+class ActionLogKeyChange(_message.Message):
     __slots__ = ["after", "before", "key"]
     AFTER_FIELD_NUMBER: _ClassVar[int]
     BEFORE_FIELD_NUMBER: _ClassVar[int]
@@ -149,8 +170,8 @@ class ActionLogFieldChange(_message.Message):
 class ActionNetworkCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionNetworkDeleted(_message.Message):
     __slots__ = []
@@ -159,20 +180,20 @@ class ActionNetworkDeleted(_message.Message):
 class ActionNetworkUpdated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionSessionCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionUserCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionUserDeleted(_message.Message):
     __slots__ = []
@@ -191,8 +212,8 @@ class ActionUserSuspended(_message.Message):
 class ActionWebhookCreated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
 
 class ActionWebhookDeleted(_message.Message):
     __slots__ = []
@@ -201,5 +222,5 @@ class ActionWebhookDeleted(_message.Message):
 class ActionWebhookUpdated(_message.Message):
     __slots__ = ["changes"]
     CHANGES_FIELD_NUMBER: _ClassVar[int]
-    changes: _containers.RepeatedCompositeFieldContainer[ActionLogFieldChange]
-    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogFieldChange, _Mapping]]] = ...) -> None: ...
+    changes: _containers.RepeatedCompositeFieldContainer[ActionLogChange]
+    def __init__(self, changes: _Optional[_Iterable[_Union[ActionLogChange, _Mapping]]] = ...) -> None: ...
